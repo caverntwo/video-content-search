@@ -1,0 +1,13 @@
+{
+	"general": {
+		"seed": "12345"
+	},
+	"paths": {
+		"train": "train",
+		"raw": "raw"
+	},
+	"shot-detection": {
+		"directory": "shot-detection",
+		"file_name": "shots.txt"
+	}
+}
