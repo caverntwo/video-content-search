@@ -34,3 +34,4 @@ class VideoManager:
 
 	def _find_videos(self):
 		return sorted([f for f in self.raw_folder.rglob("*.mp4") if f.is_file()])
+        
