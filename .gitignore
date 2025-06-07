@@ -150,6 +150,8 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+src/embeddings.json
+output/_All
 
 # Pyre type checker
 .pyre/
@@ -175,3 +177,8 @@ cython_debug/
 
 # ignore videos
 *.mp4
+
+# ignore pictures
+*.jpg
+/output/_All
+*.jpg

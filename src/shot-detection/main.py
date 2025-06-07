@@ -7,11 +7,9 @@ from pathlib import Path
 
 print(cv.__version__)
 
-
-
 def shotDetection(title):
 
-    vid = cv.VideoCapture(f"V3C1_200/{title}")
+    vid = cv.VideoCapture(f"raw/V3C1_200/{title}")
     hists = []
     BINS = 64
     ranges=[0, 256]
@@ -33,8 +31,8 @@ def shotDetection(title):
                                 mask=None, histSize=[BINS], ranges=ranges)
             histt = cv.transpose(hist)
             hists.append(histt)
-            #cv.imshow(f"Frame {frameCount}", frameg)
-            #plt.plot(hist, label=f'{frameCount}')
+            cv.imshow(f"Frame {frameCount}", frameg)
+            plt.plot(hist, label=f'{frameCount}')
    #plt.legend()
    #plt.show()
 
@@ -53,8 +51,8 @@ def shotDetection(title):
 
     criteria = (cv.TERM_CRITERIA_MAX_ITER + cv.TERM_CRITERIA_EPS, 10, 1.0)
 
-    compactness,labels,centers = cv.kmeans(data=samples, K=numClusters, 
-    bestLabels=None, criteria=criteria, attempts=10, flags=flags)
+    compactness,labels,centers = cv.kmeans(data=samples, K=numClusters, bestLabels=None, criteria=criteria, attempts=10, flags=flags)
+
     os.makedirs("output", exist_ok=True)
     os.makedirs(f"output/{title}", exist_ok=True)
    
@@ -64,14 +62,18 @@ def shotDetection(title):
     vid.release()
 
 
-directory = os.fsencode("V3C1_200")
-  
+directory = os.fsencode("raw/V3C1_200")
+#D:\Github\video-content-search\raw\V3C1_200
+#D:\Github\video-content-search\src\shot-detection
+
 for file in os.listdir(directory):
     filename = os.fsdecode(file)
+    filepath = os.path.join("raw/V3C1_200", filename)
     if filename.endswith(".mp4"):
         shotDetection(filename)
         continue
     else:
         continue
+
 
 
