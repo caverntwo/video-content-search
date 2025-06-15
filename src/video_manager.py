@@ -31,7 +31,7 @@ class VideoManager:
 		print(f"VideoManager: Found {len(self.videos)} videos!")
 		for video in self.videos:
 			print(video)
+		return 'video manager'
 
 	def _find_videos(self):
 		return sorted([f for f in self.raw_folder.rglob("*.mp4") if f.is_file()])
-        
