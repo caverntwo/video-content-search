@@ -1,14 +1,19 @@
 <script setup>
 import { ref } from 'vue'
 
-const searchTerms = ref('')
+defineProps({
+	searchTerms: {
+		type: String,
+		required: false
+	}
+})
+const emit = defineEmits(['search'])
 </script>
 
 <template>
 	<div class="search-bar-container">
 		<h1 class="green">{{ source }}</h1>
-		<input v-model="searchTerms" placeholder="Enter search terms..."></input>
-		<button @click="emit('search', sourceText)">Search</button>
+		<input :value="searchTerms" @input="(e) => emit('search', e.target.value)" placeholder="Enter search terms..."></input>
 	</div>
 </template>
 

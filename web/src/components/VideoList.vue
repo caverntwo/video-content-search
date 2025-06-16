@@ -1,39 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import VideoCard from './VideoCard.vue';
 
 defineProps({
-	searchTerms: {
-		type: String,
+	videos: {
+		type: Array,
 		required: false
 	}
 })
 
-watch({
-	searchTerms: {
-		immediate: true,
-		handler(newTerms){
-			loadVideos(newTerms);
-		}
-	}
-})
-
-async function loadVideos(search) {
-	const options = {
-		method: "GET"
-	}
-	const res = await fetch('http://127.0.0.1:3456/videos?search=' + search)
-		.then(res => res.text())
-		.then(text => {
-			console.log("response: " + text);
-		})
-}
 </script>
 
 <template>
 	<h1>Videos</h1>
 
 	<div class="video-list-container">
-		
+		<VideoCard v-for="(video, i) in videos" :key="i" :thumbnail="video.thumbnail" :videoUrl="video.video" :timeStamp="video.frame" :title="i"/>
 	</div>
 </template>
 
