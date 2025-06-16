@@ -6,6 +6,9 @@ import os
 from config import Config
 from pathlib import Path
 
+
+SAMPLING_INT = 250
+
 print(cv.__version__)
 
 def shotDetection(path, config: Config):
@@ -18,6 +21,7 @@ def shotDetection(path, config: Config):
 	frameCount = -1
 	frameIntervals = []
 	frames = []
+	frameCounts = []
 
 	while True:
 		ret, frame = vid.read()
@@ -27,6 +31,7 @@ def shotDetection(path, config: Config):
 		if frameCount % SAMPLING_INT == 0:
 			frameIntervals.append(frameCount)
 			frames.append(frame)
+			frameCounts.append(frameCount)
 			frameg = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 			hist = cv.calcHist(images=[frameg], channels=[0], 
 								mask=None, histSize=[BINS], ranges=ranges)
@@ -54,13 +59,18 @@ def shotDetection(path, config: Config):
 
 	compactness,labels,centers = cv.kmeans(data=samples, K=numClusters, bestLabels=None, criteria=criteria, attempts=10, flags=flags)
 
-	os.makedirs(os.path.join(config.data['paths']['out'], video_id), exist_ok=True)
-   
 	for i in range(0,len(labels)):
 		lbl = labels[i][0]
-		cv.imwrite(os.path.join(config.data['paths']['out'], video_id, f'{lbl}_{frameIntervals[i]}.jpg'), frames[i])
+		cv.imwrite(os.path.join(config.data['paths']['out'], f'{video_id}_{int(frameCounts[i] / SAMPLING_INT)}_{lbl}_{frameIntervals[i]}.jpg'), frames[i])
 		# cv.imwrite(f'output/{video_id}/{lbl}_{frameIntervals[i]}.jpg', frames[i])
 	vid.release()
+
+def videoFileFromImage(imageFilePath):
+	parts = imageFilePath.split('_')
+	if len(parts) >= 2:
+		videoId = parts[0]
+		frameId = parts[1]
+		return (f'{videoId}.mp4', int(frameId) * SAMPLING_INT)
 
 
 # directory = os.fsencode("../../raw/V3C1_200")
