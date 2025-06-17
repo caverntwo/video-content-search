@@ -17,6 +17,7 @@ def shotDetection(path, config: Config):
 
 	duration = vid.get(cv.CAP_PROP_POS_MSEC)
 	frame_count = vid.get(cv.CAP_PROP_FRAME_COUNT)
+	fps = vid.get(cv.CAP_PROP_FPS)
 
 	hists = []
 	BINS = 64
@@ -65,7 +66,7 @@ def shotDetection(path, config: Config):
 
 	for i in range(0,len(labels)):
 		lbl = labels[i][0]
-		cv.imwrite(os.path.join(config.data['paths']['out'], f'{video_id}_{int(frameCounts[i] * frame_count)}_{int(duration)}_{lbl}_{frameIntervals[i]}.jpg'), frames[i])
+		cv.imwrite(os.path.join(config.data['paths']['out'], f'{video_id}_{int(frameCounts[i])}_{int(100* round(frameCounts[i] / fps))}_{lbl}_{frameIntervals[i]}.jpg'), frames[i])
 		# cv.imwrite(f'output/{video_id}/{lbl}_{frameIntervals[i]}.jpg', frames[i])
 	vid.release()
 
@@ -75,7 +76,7 @@ def videoFileFromImage(imageFilePath):
 		videoId = parts[0]
 		frameNum = parts[1]
 		framerateDen = parts[2]
-		return (f'{videoId}.mp4', int(int(frameNum) / int(framerateDen)))
+		return (f'{videoId}.mp4', int(frameNum))
 
 
 # directory = os.fsencode("../../raw/V3C1_200")

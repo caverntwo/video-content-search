@@ -29,15 +29,21 @@ const props = defineProps({
 
 <template>
 	<RouterLink :to="{name: 'Player', query:props}">
-		<div class="video-card-container">
-			<p>{{ title }}</p>
+		<div class="video-card-container card">
 			<img :src="'http://127.0.0.1:3456' + thumbnail" width="400px">
+			<div class="video-info">
+				<p>{{ title }}</p>
+				<p>{{ timeStamp / 100 }} s</p>
+			</div>
 		</div>
 	</RouterLink>
 </template>
 
 <style scoped>
 .video-list-container {
-	background-color: blueviolet;
+	background-color: darkgray;
+}
+.video-info {
+	background-color: beige;
 }
 </style>

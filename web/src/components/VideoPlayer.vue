@@ -23,7 +23,7 @@ const props = defineProps({
 const videoElement = ref(null)
 
 function videoloaded() {
-	videoElement.value.currentTime = props.timeStamp;
+	videoElement.value.currentTime = props.timeStamp / 100;
 	videoElement.value.volume = 0.1;
 	videoElement.value.muted = true;
 	videoElement.value.play();
@@ -32,20 +32,23 @@ function videoloaded() {
 </script>
 
 <template>
-	<h1>{{ url }}</h1>
 
 	<div class="video-container">
 		<!-- <video id="main-video" crossorigin controls data-plyr-config='{ "volume": 0 }' playsinline autoplay debug></video> -->
 		<video id="main-video" ref="videoElement" controls :src="'http://127.0.0.1:3456' + videoUrl" @loadedmetadata="videoloaded"></video>
 	</div>
+	<h2>Title</h2>
 </template>
 
 <style scoped>
-	div {
-		background-color: red;
+	.video-container {
+		background-color: darkslategray;
 	}
-	#main-video {
+	video {
 		width: 100%;
+		min-width: 800px;
+		padding: 10px;
+		box-sizing: border-box;
 	}
 </style>
 

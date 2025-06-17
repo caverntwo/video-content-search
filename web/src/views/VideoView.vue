@@ -9,11 +9,18 @@ const route = useRoute()
 
 <template>
 	<div>
-		<pre>{{ route.query }}</pre>
+		<!-- <pre>{{ route.query }}</pre> -->
 		<VideoPlayer :videoUrl="route.query.videoUrl" :timeStamp="route.query.timeStamp"/>
 	</div>
 </template>
 
 <style scoped>
-
+	div {
+		background: darkgray;
+		margin: 0;
+		width: 100%;
+		position: relative;
+		box-sizing: border-box;
+		overflow: hidden;
+	}
 </style>
