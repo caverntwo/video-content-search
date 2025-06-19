@@ -182,3 +182,7 @@ cython_debug/
 *.jpg
 /output/_All
 *.jpg
+
+temp/
+output/
+out/

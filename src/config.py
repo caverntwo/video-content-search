@@ -1,10 +1,13 @@
 from pathlib import Path
 import torch
+import os
 import json
 
 class Config:
+	
 	def __init__(self, config_path):
 		self.config_path = config_path
+		self.cwd = os.getcwd()
 
 		self.__load_from_json()
 
