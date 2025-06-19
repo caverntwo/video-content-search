@@ -68,6 +68,7 @@ class Model():
 
 		annoy_index = AnnoyIndex(512, metric="angular" ) #Dimension and metric to compute distance
 		#Could also use cosine and more
+		print(query)
 
 		for idx, embedding in enumerate(self.embeddings):
 			annoy_index.add_item(idx, embedding) #Number of the index, actual embeddings
