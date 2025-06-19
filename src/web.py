@@ -18,7 +18,7 @@ def create_web_api(config: Config, model: Model):
 
 		try:
 			# if search is not None:
-				search = request.get_data(as_text=True)
+				#search = request.get_data(as_text=True)
 				print(search)
 				results = model.estimate(search)
 				webresults = [{'thumbnail': f'/stream/{result[0]}', 'video': f'/stream/{result[1]}', 'frame': result[2]} for result in results]
