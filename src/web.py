@@ -12,7 +12,7 @@ def create_web_api(config: Config, model: Model):
 	def index():
 		return "Hello world! Use GET/POST /videos with parameter 'search'!"
 
-	@api.route('/videos', methods=['GET', 'POST'])
+	@api.route('/videos')
 	def videos():
 		search = request.args.get('search')
 
