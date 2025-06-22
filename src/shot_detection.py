@@ -28,8 +28,9 @@ def shotDetection(path, config: Config):
 	frames = []
 	frameCounts = []
 
-	while True:
-		ret, frame = vid.read()
+	success = 1
+	while success:
+		success, frame = vid.read()
 		if frame is None:
 			break
 		frameCount += 1
@@ -47,35 +48,37 @@ def shotDetection(path, config: Config):
    #plt.legend()
    #plt.show()
 
+	for i in range(0, len(frames)):
+		cv.imwrite(os.path.join(config.data['paths']['out'], f'{video_id}_{int(frameCounts[i])}_{int(1000* round(frameCounts[i] / fps))}_{frameIntervals[i]}.jpg'), frames[i])
 
 
-	#k-means clustering
-	samples = np.zeros((len(hists), BINS))
-	i = 0
-	for h in hists:
-		samples[i] = h
-		i += 1
+	# #k-means clustering
+	# samples = np.zeros((len(hists), BINS))
+	# i = 0
+	# for h in hists:
+	# 	samples[i] = h
+	# 	i += 1
 
-	samples = np.float32(samples) 
-	numClusters = 10
-	flags = cv.KMEANS_RANDOM_CENTERS
+	# samples = np.float32(samples) 
+	# numClusters = 10
+	# flags = cv.KMEANS_RANDOM_CENTERS
 
-	criteria = (cv.TERM_CRITERIA_MAX_ITER + cv.TERM_CRITERIA_EPS, 10, 1.0)
+	# criteria = (cv.TERM_CRITERIA_MAX_ITER + cv.TERM_CRITERIA_EPS, 10, 1.0)
 
-	compactness,labels,centers = cv.kmeans(data=samples, K=numClusters, bestLabels=None, criteria=criteria, attempts=10, flags=flags)
+	# compactness,labels,centers = cv.kmeans(data=samples, K=numClusters, bestLabels=None, criteria=criteria, attempts=10, flags=flags)
 
-	for i in range(0,len(labels)):
-		lbl = labels[i][0]
-		cv.imwrite(os.path.join(config.data['paths']['out'], f'{video_id}_{int(frameCounts[i])}_{int(100* round(frameCounts[i] / fps))}_{lbl}_{frameIntervals[i]}.jpg'), frames[i])
-		# cv.imwrite(f'output/{video_id}/{lbl}_{frameIntervals[i]}.jpg', frames[i])
+	# for i in range(0,len(labels)):
+	# 	lbl = labels[i][0]
+	# 	cv.imwrite(os.path.join(config.data['paths']['out'], f'{video_id}_{int(frameCounts[i])}_{int(1000* round(frameCounts[i] / fps))}_{lbl}_{frameIntervals[i]}.jpg'), frames[i])
+	# 	# cv.imwrite(f'output/{video_id}/{lbl}_{frameIntervals[i]}.jpg', frames[i])
 	vid.release()
 
 def videoFileFromImage(imageFilePath):
 	parts = imageFilePath.split('_')
 	if len(parts) >= 3:
 		videoId = parts[0]
-		frameNum = parts[1]
-		framerateDen = parts[2]
+		frameNum = int(parts[2]) / 10
+		#framerateDen = parts[2]
 		return (f'{videoId}.mp4', int(frameNum))
 
 
