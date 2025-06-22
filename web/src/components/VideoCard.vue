@@ -33,7 +33,7 @@ const props = defineProps({
 			<img :src="'http://127.0.0.1:3456' + thumbnail" width="400px">
 			<div class="video-info">
 				<p>{{ title }}</p>
-				<p>{{ timeStamp / 100 }} s</p>
+				<p>{{ timeStamp / 1000 }} s</p>
 			</div>
 		</div>
 	</RouterLink>
