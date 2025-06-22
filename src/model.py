@@ -39,7 +39,7 @@ class Model():
 			for path in self.filename_list:
 				f.write(str(path) + "\n")
 
-		self.model = SentenceTransformer('clip-ViT-L-14@336px')
+		self.model = SentenceTransformer('clip-ViT-L-14')
 
 		self.embeddings = self.model.encode(img_list, batch_size=32, convert_to_tensor=True)
 		# len(embeddings) #Amount of pictures
@@ -59,7 +59,7 @@ class Model():
 		# 	json.dump(data, f, indent=2)
 
 	def loadSaved(self):
-		self.model = SentenceTransformer('clip-ViT-L-14@336px')
+		self.model = SentenceTransformer('clip-ViT-L-14')
 		# with open(self.embedding_path, "r") as f:
 		# 	embedding_data = json.load(f)
 		# self.embeddings = {k: np.array(v) for k, v in embedding_data.items()}
@@ -84,7 +84,7 @@ class Model():
 		query_text = self.model.encode([query])
 		print(f"Query shape: {query_text.shape}") #Text query encoded
 
-		result = annoy_index.get_nns_by_vector(query_text[0], 10) #nns = nearest neighbour. So five nearest neighbours
+		result = annoy_index.get_nns_by_vector(query_text[0], 50) #nns = nearest neighbour. So five nearest neighbours
 		print(f"Most likely frames: {result}") #Image ID of most likely frame
 
 		# lookup paths and return them (image url, video url, frame)
