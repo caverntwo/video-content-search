@@ -45,12 +45,10 @@ class Model():
 		# len(embeddings) #Amount of pictures
 		# embeddings.shape #Number of embeddings
 
-		embeddings = torch.tensor(embeddings)  # convert from NumPy to tensor if needed
+		self.embeddings = torch.tensor(self.embeddings)  # convert from NumPy to tensor if needed
 
 		with torch.no_grad():
-			embeddings = torch.nn.functional.normalize(embeddings, dim=1)
-
-		embeddings = embeddings.numpy()
+			self.embeddings = torch.nn.functional.normalize(self.embeddings, dim=1)
 
 		print(len(self.embeddings), "shots found, filenames:", self.filename_list)
 		# data = {name: emb.tolist() for name, emb in zip(filename_list, self.embeddings)}
