@@ -3,6 +3,7 @@ from PIL import Image #to open images
 import glob
 import os
 import numpy as np
+import torch
 import json
 import shot_detection
 from pathlib import Path
@@ -38,11 +39,18 @@ class Model():
 			for path in self.filename_list:
 				f.write(str(path) + "\n")
 
-		self.model = SentenceTransformer('clip-ViT-B-32')
+		self.model = SentenceTransformer('clip-ViT-L-14@336px')
 
 		self.embeddings = self.model.encode(img_list, batch_size=32, convert_to_tensor=True)
 		# len(embeddings) #Amount of pictures
 		# embeddings.shape #Number of embeddings
+
+		embeddings = torch.tensor(embeddings)  # convert from NumPy to tensor if needed
+
+		with torch.no_grad():
+			embeddings = torch.nn.functional.normalize(embeddings, dim=1)
+
+		embeddings = embeddings.numpy()
 
 		print(len(self.embeddings), "shots found, filenames:", self.filename_list)
 		# data = {name: emb.tolist() for name, emb in zip(filename_list, self.embeddings)}
@@ -53,7 +61,7 @@ class Model():
 		# 	json.dump(data, f, indent=2)
 
 	def loadSaved(self):
-		self.model = SentenceTransformer('clip-ViT-B-32')
+		self.model = SentenceTransformer('clip-ViT-L-14@336px')
 		# with open(self.embedding_path, "r") as f:
 		# 	embedding_data = json.load(f)
 		# self.embeddings = {k: np.array(v) for k, v in embedding_data.items()}
@@ -66,7 +74,7 @@ class Model():
 	def estimate(self, query):
 	# doing model stuff
 
-		annoy_index = AnnoyIndex(512, metric="angular" ) #Dimension and metric to compute distance
+		annoy_index = AnnoyIndex(768, metric="angular" ) #Dimension and metric to compute distance
 		#Could also use cosine and more
 		print(query)
 
