@@ -7,7 +7,7 @@ from config import Config
 from pathlib import Path
 
 
-SAMPLING_INT = 125
+SAMPLING_INT = 25
 
 print(cv.__version__)
 
@@ -22,7 +22,7 @@ def shotDetection(path, config: Config):
 	hists = []
 	BINS = 64
 	ranges=[0, 256]
-	SAMPLING_INT = 125
+	SAMPLING_INT = 25
 	frameCount = -1
 	frameIntervals = []
 	frames = []
