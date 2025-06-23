@@ -22,7 +22,6 @@ def shotDetection(path, config: Config):
 	hists = []
 	BINS = 64
 	ranges=[0, 256]
-	SAMPLING_INT = 250
 	frameCount = -1
 	frameIntervals = []
 	frames = []

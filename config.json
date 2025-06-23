@@ -5,8 +5,7 @@
 	"paths": {
 		"out": "out",
 		"raw": "raw",
-		"embeddings_file_name": "embeddings.npy",
-		"image_file_paths": "paths.txt"
+		"embeddings_file_name": "embeddings.pt"
 	},
 	"web": {
 		"debug": true,
