@@ -5,7 +5,8 @@
 	"paths": {
 		"out": "out",
 		"raw": "raw",
-		"embeddings_file_name": "embeddings.pt"
+		"embeddings_file_name": "embeddings.pt",
+		"annoy_index_file_name": "annoy_index.ann"
 	},
 	"web": {
 		"debug": true,
