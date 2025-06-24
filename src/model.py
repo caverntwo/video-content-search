@@ -81,9 +81,6 @@ class Model():
 	def estimate(self, query):
 		start_time = time.time()
 		print(round(time.time()-start_time,3), "Estimating query", query)
-		
-
-		print(round(time.time()-start_time,3), "Annoy Index built")
 
 		result = []
 		with torch.no_grad():
@@ -101,4 +98,14 @@ class Model():
 			paths.append((filename, videofile, frame))
 
 		print(round(time.time()-start_time,3), "done, returning...")
+		return paths
+
+	def list_all(self): # returns all videos
+		files = glob.glob(f'{self.out_folder}/*.mp4')
+		paths = []
+		for file in files:
+			path = Path(file)
+			filename = path.stem
+			paths.append((f'{filename}_0_0_0.jpg', f'{filename}.mp4', 0)) #hack lol
+		paths.sort(key=lambda x : x[0])
 		return paths

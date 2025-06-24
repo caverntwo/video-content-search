@@ -55,4 +55,3 @@ def videoFileFromImage(imageFilePath):
 		frameNum = int(parts[2]) / 10
 		#framerateDen = parts[2]
 		return (f'{videoId}.mp4', int(frameNum))
-

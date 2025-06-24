@@ -1,5 +1,4 @@
 from pathlib import Path
-from dres_api import DRESClient
 import torch
 import os
 import json
@@ -28,9 +27,6 @@ class Config:
 		self.seed = self.data['general']['seed']
 		print(f"Seed: ", self.seed)
 		torch.manual_seed(self.seed)
-
-		# init dres api
-		self.dres_api = DRESClient(self)
 
 	def __load_from_json(self):
 		if not Path.exists(self.config_path):

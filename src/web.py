@@ -17,15 +17,15 @@ def create_web_api(config: Config, model: Model):
 		search = request.args.get('search')
 
 		try:
-			# if search is not None:
-				#search = request.get_data(as_text=True)
+			results = []
+			if search:
 				print(search)
 				results = model.estimate(search)
-				webresults = [{'thumbnail': f'/stream/{result[0]}', 'video': f'/stream/{result[1]}', 'frame': result[2]} for result in results]
-
-				return jsonify(webresults)
-			# else: #list all videos
-			# 	return 
+			else: #list all videos
+				results = model.list_all()
+			
+			webresults = [{'thumbnail': f'/stream/{result[0]}', 'video': f'/stream/{result[1]}', 'frame': result[2]} for result in results]
+			return jsonify(webresults)
 		except:
 			return "Error", 400
 
