@@ -88,14 +88,14 @@ class Model():
 			text = clip.tokenize([query]).to(self.config.device)
 			features = self.model.encode_text(text)
 			print(f"Query shape: {features.shape}")
-			result = self.annoy_index.get_nns_by_vector(features[0], 50)
+			result = self.annoy_index.get_nns_by_vector(features[0], 500)
 			print(round(time.time()-start_time,3), f"Most likely frames: {result}")
 
 		paths = []
 		for res in result:
 			filename = self.filename_list[res]
-			videofile, frame = shot_detection.videoFileFromImage(filename)
-			paths.append((filename, videofile, frame))
+			videoId, videofile, frame, timestamp = shot_detection.videoFileFromImage(filename)
+			paths.append((videoId, filename, videofile, frame, timestamp))
 
 		print(round(time.time()-start_time,3), "done, returning...")
 		return paths
@@ -105,7 +105,7 @@ class Model():
 		paths = []
 		for file in files:
 			path = Path(file)
-			filename = path.stem
-			paths.append((f'{filename}_0_0_0.jpg', f'{filename}.mp4', 0)) #hack lol
+			videoId = path.stem
+			paths.append((videoId, f'{videoId}_0_0_0.jpg', f'{videoId}.mp4', 0, 0)) #hack lol
 		paths.sort(key=lambda x : x[0])
 		return paths

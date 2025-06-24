@@ -24,7 +24,7 @@ def create_web_api(config: Config, model: Model):
 			else: #list all videos
 				results = model.list_all()
 			
-			webresults = [{'thumbnail': f'/stream/{result[0]}', 'video': f'/stream/{result[1]}', 'frame': result[2]} for result in results]
+			webresults = [{'id': result[0], 'thumbnail': f'/stream/{result[1]}', 'video': f'/stream/{result[2]}', 'frame': result[3], 'time': result[4]} for result in results]
 			return jsonify(webresults)
 		except:
 			return "Error", 400
