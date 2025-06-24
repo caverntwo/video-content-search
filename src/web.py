@@ -35,4 +35,34 @@ def create_web_api(config: Config, model: Model):
 		imagefolder = os.path.join(config.cwd, config.data['paths']['out'])
 		print(imagefolder, filename)
 		return send_from_directory(imagefolder, filename)
+	
+	@api.route('/enable')
+	def enable():
+		try:
+			print('/enable')
+			if not config.dres_api.is_setup:
+				config.dres_api.setup()
+				return "set up"
+			else:
+				print("already set up")
+				return "already set up"
+		except:
+			return "Error", 500
+
+
+	@api.route('/submit/<videoId>')
+	def submit(text, videoId, start, end):
+		text = request.args.get('text')
+		videoId = request.args.get('videoId')
+		start = int(request.args.get('start'))
+		end = int(request.args.get('end'))
+
+		try:
+			print("/submit")
+			res = config.dres_api.submit(text, videoId, start, end)
+			return res
+
+		except:
+			return "Error", 400
+
 	return api

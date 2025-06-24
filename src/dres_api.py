@@ -20,6 +20,8 @@ class ApiClientAnswer:
 		self.start = start
 		self.end = end
 
+		self.is_setup = False
+
 	def to_dict(self):
 		return {
 			"text": self.text,
@@ -118,9 +120,23 @@ class DRESClient:
 			print(f"[DRES] Submitted, Success: {res["submission"] == 'WRONG'}")
 			return res
 		print(f"[DRES] Submit request failed! Response: ", response, response.status_code, response.content)
-		return None
+		return response.content
 		
 
+	def setup(self):
+		print("setting up API")
+		if self.login():
+			res = self.list_evaluations()
+			self.evalId = res[0]['id']
+			self.evalName = res[0]['name']
+			print("Received Task", self.evalId, self.evalName)
+			self.is_setup = True
+
+	def submit(self, text:str, videoId:str, start:int, end:int):
+		if self.is_setup:
+			return self.submit_evaluation(self.evalId, self.evalName, text, videoId, start, end)
+		return None
+	
 # config_file_path = Path('config.json')
 # config = Config(config_file_path)
 # client = DRESClient(config)
