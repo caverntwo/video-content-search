@@ -7,6 +7,7 @@ from config import Config
 from video_manager import VideoManager
 from shot_detection import shotDetection
 from model import Model
+from dres_api import DRESClient
 
 from web import create_web_api
 

@@ -12,5 +12,10 @@
 		"debug": true,
 		"ip": "0.0.0.0",
 		"port": "3456"
+	},
+	"dres": {
+		"base_url": "https://vbs.videobrowsing.org",
+		"username": "TECHtalent16",
+		"password": "F4qvm27R"
 	}
 }
