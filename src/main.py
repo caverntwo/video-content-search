@@ -20,9 +20,6 @@ print("Launch settings: ", sys.argv)
 config_file_path = Path('config.json')
 config = Config(config_file_path)
 
-# init dres api
-config.dres_api = DRESClient(config)
-
 video_manager = VideoManager(config)
 print(video_manager)
 

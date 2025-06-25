@@ -50,8 +50,8 @@ def shotDetection(path, config: Config):
 
 def videoFileFromImage(imageFilePath):
 	parts = imageFilePath.split('_')
-	if len(parts) >= 3:
+	if len(parts) >= 3: # 00001_325_13000_325.jpg -> 00001 (video id), 325 (frame), 13000 (timestamp (ms)), <unused>
 		videoId = parts[0]
-		frameNum = int(parts[2]) / 10
-		#framerateDen = parts[2]
-		return (videoId, f'{videoId}.mp4', int(frameNum), int(frameNum))
+		frameNum = int(parts[1])
+		timeStamp = int(parts[2])
+		return (videoId, f'{videoId}.mp4', int(frameNum), int(timeStamp))

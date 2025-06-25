@@ -3,6 +3,10 @@ import { ref, watch } from 'vue'
 import { RouterLink } from 'vue-router';
 
 const props = defineProps({
+	videoId: {
+		type: String,
+		required: true
+	},
 	videoUrl: {
 		type: String,
 		required: true
@@ -15,15 +19,15 @@ const props = defineProps({
 		type: String,
 		required: false
 	},
+	frame: {
+		type: String,
+		required: false
+	},
 	title: {
 		type: String,
 		required: true
 	}
 })
-
-// watch(() => props.videoUrl, (newVideoUrl) => {
-
-// })
 
 </script>
 

@@ -10,7 +10,7 @@ const route = useRoute()
 <template>
 	<div>
 		<!-- <pre>{{ route.query }}</pre> -->
-		<VideoPlayer :videoUrl="route.query.videoUrl" :timeStamp="route.query.timeStamp"/>
+		<VideoPlayer :videoId="route.query.videoId" :videoUrl="route.query.videoUrl" :frame="route.query.frame" :timeStamp="route.query.timeStamp" :title="route.query.title" :thumbnail="route.query.thumbnail" />
 	</div>
 </template>
 
