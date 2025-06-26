@@ -1,0 +1,14 @@
+# Don't copy temp folder
+temp
+
+# Don't copy web app into python container
+web
+
+# Ignore git stuff and other caches
+.git
+.idea
+.vscode
+__pycache__
+
+# Config file is copied seperately
+config.json

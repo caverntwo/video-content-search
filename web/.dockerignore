@@ -1,0 +1,7 @@
+# node_modules
+node_modules
+
+# stuff not needed
+.editorconfig
+.vscode
+dist

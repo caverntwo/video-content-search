@@ -2,8 +2,6 @@ from sentence_transformers import SentenceTransformer
 from PIL import Image #to open images
 import glob
 import os
-import numpy as np
-import json
 import time
 import shot_detection
 from pathlib import Path

@@ -1,0 +1,15 @@
+services:
+  backend:
+    image: caverntwo/video-content-search-backend
+    ports:
+      - "3456:3456"
+    networks:
+      - video-network
+  web:
+    image: caverntwo/video-content-search-web
+    ports: 
+      - "3457:3457"
+    networks:
+      - video-network
+networks:
+  video-network: {}

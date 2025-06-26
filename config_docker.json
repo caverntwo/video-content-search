@@ -1,0 +1,21 @@
+{
+	"general": {
+		"seed": "12345"
+	},
+	"paths": {
+		"out": "out",
+		"raw": "raw",
+		"embeddings_file_name": "embeddings.pt",
+		"annoy_index_file_name": "annoy_index.ann"
+	},
+	"web": {
+		"debug": true,
+		"ip": "0.0.0.0",
+		"port": "3456"
+	},
+	"dres": {
+		"base_url": "https://vbs.videobrowsing.org",
+		"username": "TECHtalent16",
+		"password": "F4qvm27R"
+	}
+}
