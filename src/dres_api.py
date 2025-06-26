@@ -127,8 +127,10 @@ class DRESClient:
 		print("setting up API")
 		if self.login():
 			res = self.list_evaluations()
-			self.evalId = res[0]['id']
-			self.evalName = res[0]['name']
+			# find "IVADL2025"
+			ivadl = [r for r in res if r['name'] == "IVADL2025"]
+			self.evalId = ivadl[0]['id']
+			self.evalName = ivadl[0]['name']
 			print("Received Task", self.evalId, self.evalName)
 			self.is_setup = True
 
