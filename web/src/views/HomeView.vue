@@ -9,9 +9,11 @@ const appStore = useAppStore()
 
 const searchTerms = ref(appStore.search)
 const videos = ref([])
+const info = ref('None')
 
 onMounted(() => {
 	console.log("search " + appStore.search);
+	loadInfo()
 	if (searchTerms.value)
 		loadVideos(searchTerms.value);
 })
@@ -22,6 +24,19 @@ async function search(s) {
 	console.log("searching " + s);
 	appStore.setSearch(s);
 	await loadVideos(s);
+}
+
+async function loadInfo() {
+	const options = {
+		method: "GET"
+	}
+	const res = await fetch('http://127.0.0.1:3456/info')
+		.then(res => res.json())
+		.then(raw => {
+			console.log("response: " , raw);
+			return raw;
+		})
+	info.value = JSON.stringify(res);
 }
 
 async function loadVideos(search) {
@@ -40,12 +55,9 @@ async function loadVideos(search) {
 
 <template>
 	<div>
-		<a href="https://vite.dev" target="_blank">
-			<img src="/vite.svg" class="logo" alt="Vite logo" />
-		</a>
-		<a href="https://vuejs.org/" target="_blank">
-			<img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-		</a>
+		<h1>Video Content Search</h1>
+		<h2>Current Task</h2>
+		<p>{{ info }}</p>
 	</div>
 	<SearchBar @search="search" :searchTerms="searchTerms"/>
 	<VideoList :videos="videos"/>

@@ -15,6 +15,12 @@ def create_web_api(config: Config, model: Model):
 	@api.route('/')
 	def index():
 		return "Hello world! Use GET/POST /videos with parameter 'search'!"
+	
+	@api.route('/info')
+	def info():
+		if dres_api.is_setup:
+			return jsonify({"id": dres_api.evalId, "name": dres_api.evalName})
+		else: return "no tasks found..."
 
 	@api.route('/videos')
 	def videos():
