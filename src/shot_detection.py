@@ -1,6 +1,4 @@
 import cv2 as cv
-import matplotlib.pyplot as plt
-import numpy as np
 import os
 # import ffmpeg
 from config import Config
